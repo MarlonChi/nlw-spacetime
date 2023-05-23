@@ -12,13 +12,17 @@ export async function memoriesRoutes(app: FastifyInstance) {
       where: {
         userId: request.user.sub,
       },
-      orderBy: { createdAt: 'asc' },
+      orderBy: {
+        createdAt: 'asc',
+      },
     })
+
     return memories.map((memory) => {
       return {
         id: memory.id,
         coverUrl: memory.coverUrl,
         excerpt: memory.content.substring(0, 115).concat('...'),
+        createdAt: memory.createdAt,
       }
     })
   })
